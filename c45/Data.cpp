@@ -2,20 +2,20 @@
 
 #include <utility>
 
-Data::Data(const std::list<std::string>& tagNames, std::string tagValues, std::string className) : _className(std::move(className)) {
+Data::Data(const std::vector<std::string>& tagNames, std::string tagValues) {
 	this->_tags = std::map<std::string, std::string>();
 
 	size_t pos = 0;
 	std::string token;
 	auto namesIterator = tagNames.begin();
 
-	while ((pos = tagValues.find(',')) != std::string::npos) {
+	while ((pos = tagValues.find(';')) != std::string::npos) {
 		token = tagValues.substr(0, pos);
 		this->_tags.insert(std::pair<std::string, std::string>(*namesIterator, token));
 		tagValues.erase(0, pos + 1);
 		namesIterator++;
 	}
-    this->_tags.insert(std::pair<std::string, std::string>(*namesIterator, tagValues));
+    this->_className = tagValues;
 }
 
 Data::Data(const Data &other) {

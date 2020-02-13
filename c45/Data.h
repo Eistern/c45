@@ -1,14 +1,16 @@
-#pragma once
+#ifndef DATA_H
+#define DATA_H
+
 #include <iostream>
 #include <map>
-#include <list>
+#include <vector>
 
 class Data {
 private:
 	std::map<std::string, std::string> _tags;
 	std::string _className;
 public:
-	Data(const std::list<std::string>& tagNames, std::string tagValues, std::string className);
+	Data(const std::vector<std::string>& tagNames, std::string tagValues);
 	Data(const Data& other);
 
 	Data& operator=(const Data& other);
@@ -20,3 +22,4 @@ public:
 	~Data();
 };
 
+#endif
