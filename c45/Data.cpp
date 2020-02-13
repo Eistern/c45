@@ -19,17 +19,17 @@ Data::Data(const std::list<std::string>& tagNames, std::string tagValues, std::s
 }
 
 Data::Data(const Data &other) {
-    this->className = other.className;
-    this->tags = other.tags;
+    this->_className = other._className;
+    this->_tags = other._tags;
 }
-
 Data &Data::operator=(const Data &other) {
     if (this != &other) {
-        this->className = other.className;
-        this->tags = other.tags;
+        this->_className = other._className;
+        this->_tags = other._tags;
     }
     return *this;
 }
+
 std::string Data::getTag(const std::string &tagName) {
     auto result = this->_tags.find(tagName);
     if (result == this->_tags.end())
@@ -40,10 +40,12 @@ std::string Data::getTag(const std::string &tagName) {
 
 Data &Data::operator=(Data &&other) noexcept {
     if (this != &other) {
-        this->className = std::move(other.className);
-        this->tags = std::move(other.tags);
+        this->_className = std::move(other._className);
+        this->_tags = std::move(other._tags);
     }
     return *this;
+}
+
 std::map<std::string, std::string>& Data::getTags() {
     return this->_tags;
 }
