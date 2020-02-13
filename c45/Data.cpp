@@ -17,7 +17,25 @@ Data::Data(std::list<std::string> tagNames, std::string tagValues, std::string _
 	this->tags.insert(*namesIterator, tagValues);
 }
 
-
-Data::~Data()
-{
+Data::Data(const Data &other) {
+    this->className = other.className;
+    this->tags = other.tags;
 }
+
+Data &Data::operator=(const Data &other) {
+    if (this != &other) {
+        this->className = other.className;
+        this->tags = other.tags;
+    }
+    return *this;
+}
+
+Data &Data::operator=(Data &&other) noexcept {
+    if (this != &other) {
+        this->className = std::move(other.className);
+        this->tags = std::move(other.tags);
+    }
+    return *this;
+}
+
+Data::~Data() = default;

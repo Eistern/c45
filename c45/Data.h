@@ -9,6 +9,11 @@ private:
 	std::string className;
 public:
 	Data(std::list<std::string> tagNames, std::string tagValues, std::string _className);
+	Data(const Data& other);
+
+	Data& operator=(const Data& other);
+    Data& operator=(Data&& other) noexcept;
+
 	~Data();
 };
 
