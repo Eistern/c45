@@ -1,8 +1,9 @@
 #include "Data.h"
 
+#include <utility>
 
-Data::Data(std::list<std::string> tagNames, std::string tagValues, std::string _className) : className(_className) {
-	this->tags = std::map<std::string, std::string>();
+Data::Data(const std::list<std::string>& tagNames, std::string tagValues, std::string className) : _className(std::move(className)) {
+	this->_tags = std::map<std::string, std::string>();
 
 	size_t pos = 0;
 	std::string token;
@@ -10,11 +11,11 @@ Data::Data(std::list<std::string> tagNames, std::string tagValues, std::string _
 
 	while ((pos = tagValues.find(',')) != std::string::npos) {
 		token = tagValues.substr(0, pos);
-		this->tags.insert(*namesIterator, token);
+		this->_tags.insert(std::pair<std::string, std::string>(*namesIterator, token));
 		tagValues.erase(0, pos + 1);
 		namesIterator++;
 	}
-	this->tags.insert(*namesIterator, tagValues);
+    this->_tags.insert(std::pair<std::string, std::string>(*namesIterator, tagValues));
 }
 
 Data::Data(const Data &other) {
@@ -29,6 +30,13 @@ Data &Data::operator=(const Data &other) {
     }
     return *this;
 }
+std::string Data::getTag(const std::string &tagName) {
+    auto result = this->_tags.find(tagName);
+    if (result == this->_tags.end())
+        throw std::exception();
+
+    return result->second;
+}
 
 Data &Data::operator=(Data &&other) noexcept {
     if (this != &other) {
@@ -36,6 +44,8 @@ Data &Data::operator=(Data &&other) noexcept {
         this->tags = std::move(other.tags);
     }
     return *this;
+std::map<std::string, std::string>& Data::getTags() {
+    return this->_tags;
 }
 
 Data::~Data() = default;
