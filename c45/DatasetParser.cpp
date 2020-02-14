@@ -7,8 +7,19 @@ DatasetParser::DatasetParser(const std::string& name) : DatasetParser() {
 }
 
 void DatasetParser::loadFile(const std::string& name) {
-    this->_fileStream = std::ifstream(name, std::ios_base::in);
+    if (this->_fileStream.is_open()) {
+        this->_fileStream.close();
+    }
+
+    this->_fileStream = std::ifstream(name, std::ifstream::binary);
 }
+
+void DatasetParser::closeFile() {
+    if (!this->_fileStream.is_open())
+        throw std::exception();
+
+    this->_fileStream.close();
+};
 
 void DatasetParser::loadParametersDefinition() {
     if (!this->_fileStream.is_open()) {
@@ -25,9 +36,10 @@ void DatasetParser::loadParametersDefinition() {
 }
 
 void DatasetParser::loadData() {
-    if (!this->_fileStream.is_open() || this->_dataStart == -1)
+    if (!this->_fileStream.is_open() || this->_dataStart == 0)
         throw std::exception();
 
+    this->_fileStream.seekg(0, std::ios_base::beg);
     this->_fileStream.seekg(this->_dataStart, std::ios_base::beg);
 
     this->_dataset.clear();
@@ -40,5 +52,7 @@ void DatasetParser::loadData() {
 }
 
 DatasetParser::~DatasetParser() {
-    this->_fileStream.close();
-};
+    if (this->_fileStream.is_open()) {
+        this->_fileStream.close();
+    }
+}

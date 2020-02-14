@@ -13,12 +13,13 @@ private:
 	std::ifstream _fileStream;
 	std::vector<std::string> _parametersDefinition;
 	std::vector<Data> _dataset;
-	int _dataStart = -1;
+	unsigned int _dataStart = 0;
 public:
     DatasetParser();
 	explicit DatasetParser(const std::string& name);
 
 	void loadFile(const std::string& name);
+	void closeFile();
     void loadParametersDefinition();
     void loadData();
 
