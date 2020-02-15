@@ -1,6 +1,8 @@
 #include "Data.h"
 
 #include <utility>
+#include <cctype>
+#include <algorithm>
 
 Data::Data(const std::vector<std::string>& tagNames, std::string tagValues) {
 	this->_tags = std::map<std::string, std::string>();
@@ -11,6 +13,8 @@ Data::Data(const std::vector<std::string>& tagNames, std::string tagValues) {
 
 	while ((pos = tagValues.find(';')) != std::string::npos) {
 		token = tagValues.substr(0, pos);
+        std::transform(token.begin(), token.end(), token.begin(),
+                       [](unsigned char c){ return std::tolower(c); });
 		this->_tags.insert(std::pair<std::string, std::string>(*namesIterator, token));
 		tagValues.erase(0, pos + 1);
 		namesIterator++;
