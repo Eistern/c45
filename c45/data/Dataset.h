@@ -17,9 +17,9 @@ public:
     Dataset(std::vector<std::string> parametersNames, std::vector<Data> data);
     Dataset(const Dataset& other);
 
-    std::vector<std::string> getValues(const std::string& parameter);
+    std::vector<std::string> getValues(const std::string& parameter) const;
 
-    float getEntropy();
+    float getEntropy() const;
     int getSize() const;
     const std::vector<std::string>& getParamsNames() const;
     const std::vector<Data>& getCases() const;

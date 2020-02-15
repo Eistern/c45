@@ -10,4 +10,4 @@ add_executable(c45
         data/Data.h
         data/DatasetParser.cpp
         data/DatasetParser.h
-        main.cpp CSVUtils.h data/Dataset.cpp data/Dataset.h)
+        main.cpp CSVUtils.h data/Dataset.cpp data/Dataset.h decision_tree/C45Tree.cpp decision_tree/C45Tree.h)

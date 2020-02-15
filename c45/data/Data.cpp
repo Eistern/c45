@@ -40,6 +40,10 @@ std::string Data::getTag(const std::string &tagName) const {
     return result->second;
 }
 
+std::string Data::getClass() const {
+    return this->_className;
+}
+
 Data &Data::operator=(Data &&other) noexcept {
     if (this != &other) {
         this->_className = std::move(other._className);

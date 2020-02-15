@@ -17,6 +17,7 @@ public:
     Data& operator=(Data&& other) noexcept;
 
 	std::string getTag(const std::string& tagName) const;
+	std::string getClass() const;
 
 	~Data();
 };

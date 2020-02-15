@@ -22,14 +22,14 @@ void Dataset::_generateCounts() {
     }
 }
 
-float Dataset::getEntropy() {
+float Dataset::getEntropy() const {
     float result = 0.0;
     auto length = (float) getSize();
 
     for (auto& param: this->_params) {
-        for (auto& caseCount :  this->_counts[param]) {
+        for (auto& caseCount :  this->_counts.at(param)) {
             float probability = (float) caseCount.second / length;
-            result -= (probability) * logf(probability) / logf(2);
+            result -= (probability) * log2f(probability);
         }
     }
     return result;
@@ -39,7 +39,7 @@ int Dataset::getSize() const {
     return this->_set.size();
 }
 
-std::vector<std::string> Dataset::getValues(const std::string &parameter) {
+std::vector<std::string> Dataset::getValues(const std::string &parameter) const {
     std::vector<std::string> result;
 
     auto subMap = this->_counts.find(parameter);
