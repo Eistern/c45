@@ -4,7 +4,7 @@
 
 C45Tree::C45Tree(const Dataset& originDataset) : _children() {
     if (originDataset.getSize() == 1) {
-        this->_className = originDataset.getCases().at(0).getClass();
+        this->_className = originDataset.getCases().front().getClass();
     } else {
         const auto& paramNames = originDataset.getParamsNames();
         float maxGainRatio = 0.0;

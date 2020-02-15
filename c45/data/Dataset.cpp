@@ -10,15 +10,9 @@ Dataset::Dataset(std::vector<std::string> parametersNames, std::vector<Data> dat
 }
 
 void Dataset::_generateCounts() {
-    this->_counts = std::map<std::string, std::map<std::string, int>>();
-    for (auto& param : this->_params) {
-        std::map<std::string, int> classCounts;
-        for (auto& dataInstance : this->_set) {
-            std::string value = dataInstance.getTag(param);
-            classCounts[value]++;
-        }
-
-        this->_counts.insert(std::pair<std::string, std::map<std::string, int>>(param, classCounts));
+    for (auto& dataInstance : this->_set) {
+        std::string value = dataInstance.getClass();
+        this->_counts[value]++;
     }
 }
 
@@ -26,11 +20,9 @@ float Dataset::getEntropy() const {
     float result = 0.0;
     auto length = (float) getSize();
 
-    for (auto& param: this->_params) {
-        for (auto& caseCount :  this->_counts.at(param)) {
-            float probability = (float) caseCount.second / length;
-            result -= (probability) * log2f(probability);
-        }
+    for (auto& caseCount :  this->_counts) {
+        float probability = (float) caseCount.second / length;
+        result -= (probability) * log2f(probability);
     }
     return result;
 }
@@ -42,13 +34,11 @@ int Dataset::getSize() const {
 std::vector<std::string> Dataset::getValues(const std::string &parameter) const {
     std::vector<std::string> result;
 
-    auto subMap = this->_counts.find(parameter);
-    if (subMap == this->_counts.end())
-        throw std::exception();
-
-    for (auto& record : (*subMap).second) {
-        if (record.second > 0)
-            result.push_back(record.first);
+    for (auto& record : this->_set) {
+        std::string tagValue = record.getTag(parameter);
+        if (std::find(result.begin(), result.end(), tagValue) == result.end()) {
+            result.push_back(tagValue);
+        }
     }
 
     return result;

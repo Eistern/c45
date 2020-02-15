@@ -10,7 +10,7 @@ class Dataset {
 private:
     std::vector<std::string> _params;
     std::vector<Data> _set;
-    std::map<std::string, std::map<std::string, int>> _counts;
+    std::map<std::string, int> _counts;
 
     void _generateCounts();
 public:
