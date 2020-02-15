@@ -16,8 +16,7 @@ public:
 	Data& operator=(const Data& other);
     Data& operator=(Data&& other) noexcept;
 
-	std::string getTag(const std::string& tagName);
-	std::map<std::string, std::string>& getTags();
+	std::string getTag(const std::string& tagName) const;
 
 	~Data();
 };

@@ -22,10 +22,8 @@ Data::Data(const std::vector<std::string>& tagNames, std::string tagValues) {
     this->_className = tagValues;
 }
 
-Data::Data(const Data &other) {
-    this->_className = other._className;
-    this->_tags = other._tags;
-}
+Data::Data(const Data &other) = default;
+
 Data &Data::operator=(const Data &other) {
     if (this != &other) {
         this->_className = other._className;
@@ -34,7 +32,7 @@ Data &Data::operator=(const Data &other) {
     return *this;
 }
 
-std::string Data::getTag(const std::string &tagName) {
+std::string Data::getTag(const std::string &tagName) const {
     auto result = this->_tags.find(tagName);
     if (result == this->_tags.end())
         throw std::exception();
@@ -48,10 +46,6 @@ Data &Data::operator=(Data &&other) noexcept {
         this->_tags = std::move(other._tags);
     }
     return *this;
-}
-
-std::map<std::string, std::string>& Data::getTags() {
-    return this->_tags;
 }
 
 Data::~Data() = default;

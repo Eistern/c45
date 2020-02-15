@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(c45
-        Data.cpp
-        Data.h
-        DatasetParser.cpp
-        DatasetParser.h
-        main.cpp CSVUtils.h)
+        data/Data.cpp
+        data/Data.h
+        data/DatasetParser.cpp
+        data/DatasetParser.h
+        main.cpp CSVUtils.h data/Dataset.cpp data/Dataset.h)

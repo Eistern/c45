@@ -3,6 +3,7 @@
 
 #include "CSVUtils.h"
 #include "Data.h"
+#include "Dataset.h"
 
 #include <iostream>
 #include <fstream>
@@ -22,6 +23,8 @@ public:
 	void closeFile();
     void loadParametersDefinition();
     void loadData();
+
+    Dataset initDataset() const;
 
 	~DatasetParser();
 };

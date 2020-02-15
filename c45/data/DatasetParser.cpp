@@ -46,7 +46,6 @@ void DatasetParser::loadData() {
 
     std::string dataString;
     while (std::getline(this->_fileStream, dataString)) {
-        std::cout << dataString << std::endl;
         this->_dataset.emplace_back(Data(this->_parametersDefinition, dataString));
     }
 }
@@ -55,4 +54,8 @@ DatasetParser::~DatasetParser() {
     if (this->_fileStream.is_open()) {
         this->_fileStream.close();
     }
+}
+
+Dataset DatasetParser::initDataset() const {
+    return Dataset(this->_parametersDefinition, this->_dataset);
 }
