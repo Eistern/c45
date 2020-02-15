@@ -8,7 +8,7 @@
 
 class C45Tree {
 private:
-    std::map<std::string, C45Tree> _children;
+    std::map<std::string, C45Tree*> _children;
     std::string _className;
 public:
     explicit C45Tree(const Dataset& originDataset);
@@ -16,7 +16,7 @@ public:
     std::vector<std::string> getChildrenNames() const;
     std::string getClassName() const;
 
-    C45Tree getChild(const std::string& name);
+    C45Tree * getChild(const std::string& name);
 
     ~C45Tree();
 };

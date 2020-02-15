@@ -40,7 +40,7 @@ C45Tree::C45Tree(const Dataset& originDataset) : _children() {
 
         this->_className = bestParam;
         for (auto& subset : bestSeparation) {
-            this->_children.insert(std::pair<std::string, C45Tree>(subset.first, C45Tree(subset.second)));
+            this->_children.insert(std::pair<std::string, C45Tree*>(subset.first, new C45Tree(subset.second)));
         }
     }
 }
@@ -58,8 +58,14 @@ std::string C45Tree::getClassName() const {
     return this->_className;
 }
 
-C45Tree C45Tree::getChild(const std::string &name) {
-    return this->_children.at(name);
+C45Tree* C45Tree::getChild(const std::string &name) {
+    C45Tree* result = nullptr;
+    try {
+         result = this->_children.at(name);
+    } catch (const std::out_of_range& e) {
+        return nullptr;
+    }
+    return result;
 }
 
 C45Tree::~C45Tree() = default;
